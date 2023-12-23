@@ -2,8 +2,13 @@
 
 MapChip::MapChip() {
 
-	row_ = static_cast<int>(mapAdd_.size());
-	col_ = static_cast<int>(mapAdd_[0].size());
+	map = "map";
+	filePath = "./Resource/map/mapDate.json";
+
+	LoadJsonFile();
+
+	/*row_ = static_cast<int>(mapAdd_.size());
+	col_ = static_cast<int>(mapAdd_[0].size());*/
 
 	std::reverse(mapAdd_.begin(), mapAdd_.end());
 
@@ -80,23 +85,33 @@ void MapChip::Init() {
 
 }
 
-void MapChip::Update(Vector2 pos) {
-	for (int row = 0; row < row_; row++) {
-		for (int col = 0; col < col_; col++) {
-			worldMatrix_ = MakeAffineMatrix(mapChip_[row][col].scall, 0.0f, mapChip_[row][col].pos);
+void MapChip::Update(char* keys) {
 
-			camera.MakeWvpVpMatrix(worldMatrix_, pos);
+	if (keys[DIK_Q]) {
+		LoadJsonFile();
 
-			mapChip_[row][col].screenLt = Transform(local.lt, camera.GetWvpVpMatrix());
-			mapChip_[row][col].screenRt = Transform(local.rt, camera.GetWvpVpMatrix());
-			mapChip_[row][col].screenLb = Transform(local.lb, camera.GetWvpVpMatrix());
-			mapChip_[row][col].screenRb = Transform(local.rb, camera.GetWvpVpMatrix());
-		}
+		std::reverse(mapAdd_.begin(), mapAdd_.end());
+
+		/*mapChip_ = new Base * [row_];
+		for (int i = 0; i < row_; i++) {
+			mapChip_[i] = new Base[col_];
+		}*/
 	}
+
 }
 
 void MapChip::Draw() {
-	
+
+	Novice::DrawBox(
+		-400,
+		-400,
+		2400,
+		2400,
+		0.0f,
+		0xD3D3D3FF,
+		kFillModeSolid
+	);
+
 	for (int row = 0; row < row_; row++) {
 		for (int col = 0; col < col_; col++) {
 			if (mapAdd_[row][col] == 1) {
@@ -118,5 +133,44 @@ void MapChip::Draw() {
 				);
 			}
 		}
+	}
+}
+
+void MapChip::MartixChange(Vector2 pos) {
+	for (int row = 0; row < row_; row++) {
+		for (int col = 0; col < col_; col++) {
+			worldMatrix_ = MakeAffineMatrix(mapChip_[row][col].scall, 0.0f, mapChip_[row][col].pos);
+
+			camera.MakeWvpVpMatrix(worldMatrix_, pos);
+
+			mapChip_[row][col].screenLt = Transform(local.lt, camera.GetWvpVpMatrix());
+			mapChip_[row][col].screenRt = Transform(local.rt, camera.GetWvpVpMatrix());
+			mapChip_[row][col].screenLb = Transform(local.lb, camera.GetWvpVpMatrix());
+			mapChip_[row][col].screenRb = Transform(local.rb, camera.GetWvpVpMatrix());
+		}
+	}
+}
+
+/*========================================================================================================
+										ファイルの読み込み
+==========================================================================================================*/
+void MapChip::LoadJsonFile() {
+	json mapDate;
+
+	std::ifstream inputFile(filePath);
+	if (inputFile.is_open()) {
+
+		inputFile >> mapDate;
+
+		json::iterator itGroup = mapDate.find(map);
+
+		assert(itGroup != mapDate.end());
+
+		col_ = mapDate[map]["width"];
+		row_ = mapDate[map]["height"];
+		
+		mapAdd_ = mapDate[map]["tiles"];
+
+		inputFile.close();
 	}
 }

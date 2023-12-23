@@ -26,6 +26,9 @@
     <Filter Include="System">
       <UniqueIdentifier>{d184f34b-5cff-44a7-b141-9bfa4fbf5db8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyHedder">
+      <UniqueIdentifier>{8ffd5545-c168-4637-8019-563c1198d4e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -50,9 +53,6 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="MyVector2.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Filter\Object\Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -74,17 +74,32 @@
     <ClCompile Include="Filter\Scene\SceneGame.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Draw.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="Filter\Maneger\CollisionManeger.cpp">
       <Filter>Maneger</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.cpp">
+    <ClCompile Include="Filter\System\Camera.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\System\Matrix.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\MyHedder\MyVector2.cpp">
+      <Filter>MyHedder</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\MyHedder\Draw.cpp">
+      <Filter>MyHedder</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\Object\Enemy.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\MyHedder\MyMath.cpp">
+      <Filter>MyHedder</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\Scene\SceneClear.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter\Scene\SceneGameOver.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,8 +174,6 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
-    <ClInclude Include="MyVector2.h" />
-    <ClInclude Include="LoadCsv.h" />
     <ClInclude Include="Filter\Object\Player.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -182,15 +195,35 @@
     <ClInclude Include="Filter\Scene\SceneGame.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Draw.h" />
-    <ClInclude Include="Camera.h">
-      <Filter>System</Filter>
-    </ClInclude>
     <ClInclude Include="Filter\Maneger\CollisionManeger.h">
       <Filter>Maneger</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="Filter\System\Camera.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\System\Matrix.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\MyHedder\MyVector2.h">
+      <Filter>MyHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\MyHedder\Draw.h">
+      <Filter>MyHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\MyHedder\LoadCsv.h">
+      <Filter>MyHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\Object\Enemy.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\MyHedder\MyMath.h">
+      <Filter>MyHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\Scene\SceneClear.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter\Scene\SceneGameOver.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

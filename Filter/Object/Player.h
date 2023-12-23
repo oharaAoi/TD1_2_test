@@ -18,9 +18,17 @@ private:
 	Vector2 velocity_;
 	Vector2 acceleration_;
 
+	Vector2 gravity_;
+
 	bool isJump_;
+	bool isFall_;
+
+	bool isAlive_;
 
 	int GH_;
+	int leftGH_;
+	int rightGH_;
+
 	Vector2 drawLt_;
 	Vector2 drawScall_;
 
@@ -60,6 +68,11 @@ private:
 	Matrix3x3 worldMatrix_;
 
 	//=========================================
+	// サウンド
+	int jumpSE_;
+	int jumpSeHandle_;
+
+	//=========================================
 	Camera camera;
 
 public:
@@ -72,9 +85,13 @@ public:
 
 	void Draw();
 
+	void MatricChange();
+
 	void PlayerMove(char* keys);
 
 	void PlayerJump();
+
+	void PlayerFall();
 
 	//各頂点の座標の計算
 	void ClacVertex();
@@ -93,6 +110,16 @@ public:
 	float GetHeight() { return height_; }
 
 	void SetIsJump(bool isJump) { isJump_ = isJump; }
+	bool GetIsJump() { return isJump_; }
+
+	void SetIsFall(bool isFall) { isFall_ = isFall; }
+	bool GetIsFall() { return isFall_; }
+
+	void SetIsAlive(bool isAlive) { isAlive_ = isAlive; }
+	bool GetIsAlive() { return isAlive_; }
+
+	void SetVelocity(float velocity) { velocity_.y = velocity; }
+	void SetGravity(float gravity) { gravity_.y = gravity; }
 
 	Vector2 GetLt() { return lt_; }
 	Vector2 GetRt() { return rt_; }

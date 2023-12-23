@@ -1,0 +1,22 @@
+{
+    "start":{
+        "posX":640,
+        "posY":400
+    },
+    "up":{
+        "posX":100,
+        "posY":500
+    },
+    "down":{
+        "posX":100,
+        "posY":550
+    },
+    "space":{
+        "posX":200,
+        "posY":650
+    },
+    "check":{
+        "posX":350,
+        "posY":650
+    }
+}

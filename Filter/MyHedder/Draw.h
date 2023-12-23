@@ -6,3 +6,5 @@ void DrawSprite(Vector2 centerPos, float width, float height, Vector2 scall, int
 
 void DrawQuad(Vector2 pos, float width, float height, Vector2 lt,
 	int gh, Vector2 scall, unsigned int color);
+
+void PlayAudio(int& voiceHandle, int soundHandle, float soundVolume, bool isLoop);

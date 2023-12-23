@@ -3,7 +3,9 @@
 
 enum SceneNum {
 	SCENE_TITLE,
-	SCENE_GAME
+	SCENE_GAME,
+	SCENE_GAMEOVER,
+	SCENE_CLEAR
 };
 
 class Scene

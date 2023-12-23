@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Matrix.h"
 #include "MyVector2.h"
+#include "MyMath.h"
 
 class Camera
 {

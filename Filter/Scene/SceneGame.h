@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Scene.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "MapChip.h"
 #include "Camera.h"
 #include "CollisionManeger.h"
@@ -12,6 +13,8 @@ class SceneGame:
 private:
 
 	Player player;
+
+	Enemy enemy;
 
 	Camera camera;
 

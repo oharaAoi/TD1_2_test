@@ -1,9 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "Draw.h"
 #include <Novice.h>
 
-class SceneTitle:
+class SceneGameOver:
 	public Scene{
 
 private:
@@ -13,9 +13,12 @@ private:
 	int pushBottomSE_;
 	int pushBottomSeHandle_;
 
-public:
+	int gameOverSE_;
+	int gameOverSeHandle_;
 
-	SceneTitle();
+public:
+	SceneGameOver();
+	~SceneGameOver();
 
 	void Init()override;
 
@@ -23,7 +26,7 @@ public:
 
 	void Draw()override;
 
-	void GameStart(char* keys, char* preKeys);
+	void GoTitle(char* keys, char* preKeys);
 
 };
 

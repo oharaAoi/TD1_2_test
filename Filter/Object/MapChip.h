@@ -8,6 +8,14 @@
 #include "Matrix.h"
 #include "Camera.h"
 
+#include <json.hpp>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+
+using json = nlohmann::json;
+
 enum ChipType {
 	NONE,
 	BLOCK
@@ -22,7 +30,13 @@ private:
 
 	//=================================
 	
-	std::vector<std::vector<int>>mapAdd_ = LoadFile("./Resource/map/mapSample.csv");
+	/*std::vector<std::vector<int>>mapAdd_ = LoadFile("./Resource/map/mapSample.csv");*/
+
+	std::vector<std::vector<int>>mapAdd_;
+
+	std::string map;
+
+	std::string filePath;
 
 	int row_;
 	int col_;
@@ -72,8 +86,12 @@ public:
 	~MapChip();
 
 	void Init();
-	void Update(Vector2 pos);
+	void Update(char* keys);
 	void Draw();
+
+	void MartixChange(Vector2 pos);
+
+	void LoadJsonFile();
 
 	/*アクセッサ*/
 
@@ -85,5 +103,6 @@ public:
 
 	Matrix3x3 GetWorldMatrix() { return worldMatrix_; }
 
+	std::vector<std::vector<int>> GetAdd() { return mapAdd_; }
 };
 

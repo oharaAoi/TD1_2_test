@@ -19,11 +19,20 @@ void Player::Init() {
 	acceleration_.x = 0.0f;
 	acceleration_.y = -0.8f;
 
-	isJump_ = false;
+	gravity_.x = 0.0f;
+	gravity_.y = -4.0f;
 
-	GH_ = Novice::LoadTexture("White1x1.png");
-	drawLt_.x = 1;
-	drawLt_.y = 1;
+	isJump_ = false;
+	isFall_ = false;
+
+	isAlive_ = true;
+
+	leftGH_ = Novice::LoadTexture("./Resource/images/playerLeft.png");
+	rightGH_ = Novice::LoadTexture("./Resource/images/player.png");
+	GH_ = rightGH_;
+
+	drawLt_.x = 0;
+	drawLt_.y = 0;
 
 	drawScall_.x = 1.0f;
 	drawScall_.y = 1.0f;
@@ -49,6 +58,9 @@ void Player::Init() {
 	screenRb_.x = 0.0f;
 	screenRb_.y = 0.0f;
 
+	jumpSE_ = Novice::LoadAudio("./Resource/Sounds/jump.mp3");
+	jumpSeHandle_ = -1;
+
 	ClacVertex();
 
 	ClacAddress();
@@ -62,8 +74,8 @@ void Player::Update(char* keys) {
 
 	//=========================================
 	PlayerMove(keys);
-	PlayerJump();
-
+	
+	PlayerFall();
 	//=========================================
 
 	ClacVertex();
@@ -77,6 +89,32 @@ void Player::Update(char* keys) {
 }
 
 void Player::Draw() {
+
+	if (isAlive_) {
+		Novice::DrawQuad(
+			static_cast<int>(screenLt_.x),
+			static_cast<int>(screenLt_.y),
+			static_cast<int>(screenRt_.x),
+			static_cast<int>(screenRt_.y),
+			static_cast<int>(screenLb_.x),
+			static_cast<int>(screenLb_.y),
+			static_cast<int>(screenRb_.x),
+			static_cast<int>(screenRb_.y),
+			static_cast<int>(drawLt_.x),
+			static_cast<int>(drawLt_.y),
+			static_cast<int>(width_),
+			static_cast<int>(height_),
+			GH_,
+			0xFFFFFFFF
+		);
+	}
+
+	if (isJump_) {
+		PlayAudio(jumpSeHandle_, jumpSE_, 0.2f, false);
+	}
+}
+
+void Player::MatricChange() {
 	worldMatrix_ = MakeAffineMatrix(scall_, 0.0f, pos_);
 
 	camera.MakeWvpVpMatrix(worldMatrix_, pos_);
@@ -85,73 +123,43 @@ void Player::Draw() {
 	screenRt_ = Transform(localRt_, camera.GetWvpVpMatrix());
 	screenLb_ = Transform(localLb_, camera.GetWvpVpMatrix());
 	screenRb_ = Transform(localRb_, camera.GetWvpVpMatrix());
-
-	/*DrawQuad(
-		pos_,
-		width_,
-		height_,
-		drawLt_,
-		GH_,
-		drawScall_,
-		0xFFFFFFFF
-	);*/
-
-	Novice::DrawQuad(
-		static_cast<int>(screenLt_.x),
-		static_cast<int>(screenLt_.y),
-		static_cast<int>(screenRt_.x),
-		static_cast<int>(screenRt_.y),
-		static_cast<int>(screenLb_.x),
-		static_cast<int>(screenLb_.y),
-		static_cast<int>(screenRb_.x),
-		static_cast<int>(screenRb_.y),
-		static_cast<int>(drawLt_.x),
-		static_cast<int>(drawLt_.y),
-		static_cast<int>(width_),
-		static_cast<int>(height_),
-		GH_,
-		0xFFFFFFFF
-	);
-
-	Novice::ScreenPrintf(10, 10, "player.pos.x:%f", pos_.x);
-	Novice::ScreenPrintf(10, 30, "player.pos.y:%f", pos_.y);
-
-	Novice::ScreenPrintf(10, 60, "player.ltAdd_:%d", ltAdd_.row);
-	Novice::ScreenPrintf(10, 80, "player.preltAdd_:%d", preLtAdd_.row);
-
-	Novice::ScreenPrintf(300, 10, "screenLt_.x:%f", screenLt_.x);
 }
 
 void Player::PlayerMove(char* keys) {
 	if (keys[DIK_A]) {
 		pos_.x -= velocity_.x;
+		GH_ = leftGH_;
 	}
 
 	if (keys[DIK_D]) {
 		pos_.x += velocity_.x;
-	}
-
-	if (keys[DIK_W]) {
-		pos_.y += velocity_.x;
-	}
-
-	if (keys[DIK_S]) {
-		pos_.y -= velocity_.y;
+		GH_ = rightGH_;
 	}
 
 	if (keys[DIK_SPACE]) {
-		if (!isJump_) {
-			isJump_ = true;
-			velocity_.y = 16.0f;
+		if (!isFall_) {
+			if (!isJump_) {
+				isJump_ = true;
+				isFall_ = true;
+				velocity_.y = 16.0f;
+			}
 		}
 	}
 }
 
 void Player::PlayerJump() {
-	if (isJump_) {
+	
+}
+
+void Player::PlayerFall() {
+	if (isFall_) {
 		velocity_.y += acceleration_.y;
 
 		pos_.y += velocity_.y;
+
+		if (velocity_.y < 0) {
+			isJump_ = false;
+		}
 	}
 }
 

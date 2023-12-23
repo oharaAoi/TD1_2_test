@@ -31,3 +31,10 @@ void DrawQuad(Vector2 pos, float width, float height, Vector2 lt,
 		color
 	);
 }
+
+
+void PlayAudio(int& voiceHandle, int soundHandle, float soundVolume, bool isLoop) {
+	if (Novice::IsPlayingAudio(voiceHandle) == 0 || voiceHandle == -1) {
+		voiceHandle = Novice::PlayAudio(soundHandle, isLoop, soundVolume);
+	}
+}

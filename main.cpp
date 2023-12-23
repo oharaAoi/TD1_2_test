@@ -2,13 +2,13 @@
 #include "InputManeger.h"
 #include "SceneManeger.h"
 
-const char kWindowTitle[] = "LC1A_04_オオハラアオイ_タイトル";
+const char kWindowTitle[] = "map of map";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 800);
+	Novice::Initialize(kWindowTitle, 800, 800);
 
 	InputManeger* inputManeger = InputManeger::GetInstance();
 

@@ -3,7 +3,7 @@
 #include "Draw.h"
 #include <Novice.h>
 
-class SceneTitle:
+class SceneClear:
 	public Scene{
 
 private:
@@ -13,9 +13,12 @@ private:
 	int pushBottomSE_;
 	int pushBottomSeHandle_;
 
+	int gemeClearSE_;
+	int gemeClearSeHandle_;
+
 public:
 
-	SceneTitle();
+	SceneClear();
 
 	void Init()override;
 
@@ -23,7 +26,7 @@ public:
 
 	void Draw()override;
 
-	void GameStart(char* keys, char* preKeys);
+	void GoTitle(char* keys, char* preKeys);
 
 };
 

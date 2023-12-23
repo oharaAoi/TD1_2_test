@@ -18,11 +18,17 @@ void Camera::Init() {
 	width_ = 800.0f;
 	height_ = 800.0f;
 
-	cameraWorldMatrix2.m[0][0] = 1;
-	cameraWorldMatrix2.m[1][1] = 1;
-	cameraWorldMatrix2.m[2][0] = pos_.x;
-	cameraWorldMatrix2.m[2][1] = pos_.y;
+	cameraWorldMatrix2.m[0][0] = 1.0f;
+	cameraWorldMatrix2.m[1][1] = 1.0f;
+	cameraWorldMatrix2.m[2][0] = 0.0f;
+	cameraWorldMatrix2.m[2][1] = 0.0f;
 	cameraWorldMatrix2.m[2][2] = 1;
+
+	viewMatrix = Inverse(cameraWorldMatrix2);
+	//カメラの正射影行列を作成
+	orthoMatrix = MakeOrthographicMatrix(left_, top_, right_, bottom_);
+	//カメラのビューポート行列を作成
+	viewportMatrix = MakeViewportMatrix(0.0f, 0.0f, width_, height_);
 }
 
 void Camera::CameraMove(Vector2 pos) {
@@ -35,7 +41,9 @@ void Camera::CameraMove(Vector2 pos) {
 
 void Camera::MakeWvpVpMatrix(Matrix3x3 matrix, Vector2 pos) {
 
-	CameraMove(pos);
+	
+		CameraMove(pos);
+	
 
 	//カメラのビュー行列を作成
 	viewMatrix = Inverse(cameraWorldMatrix2);
